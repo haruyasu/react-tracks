@@ -1,1 +1,1 @@
-# react-tracks
+# React GraphQL Django
