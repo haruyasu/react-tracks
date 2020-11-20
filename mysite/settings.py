@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 ]
 
 GRAPHENE = {
-    'SCHEMA': 'mysite.schema'
+    'SCHEMA': 'mysite.schema.schema'
 }
 
 
