@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Document</title>
+
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><label><span class="check_order mr-3" id="0"></span><input type="checkbox" hidden>シワ</label></li>
+        <li><label><span class="check_order mr-3" id="1"></span><input type="checkbox" hidden>シミ</label></li>
+        <li><label><span class="check_order mr-3" id="2"></span><input type="checkbox" hidden>毛穴</label></li>
+        <li><label><span class="check_order mr-3" id="3"></span><input type="checkbox" hidden>ニキビ</label></li>
+    </ul>
+    <!-- このvalueが変わるので、python側でこれを取得 -->
+    <input type="text" value="" id="target" hidden>
+
+    <script>
+        var result = document.getElementById('result');
+        var order = [];
+
+        [].forEach.call(document.querySelectorAll('input[type="checkbox"]'), function (checkbox) {
+            'use strict';
+            checkbox.addEventListener('change', function () {
+                var previousLi = checkbox.parentNode.parentNode.previousElementSibling;
+                var index = 0;
+                while (previousLi !== null) {
+                    previousLi = previousLi.previousElementSibling;
+                    index += 1;
+                }
+
+                if (checkbox.checked) {
+                    order.push(index);
+                } else {
+                    order.splice(order.indexOf(index), 1);
+                }
+
+                document.getElementById("target").setAttribute("value", order);
+
+                let check_order = document.getElementsByClassName('check_order')
+
+                for(var i = 0; i < check_order.length; i++) {
+                    check_order[i].innerHTML = ""
+                }
+
+                for (let i = 0; i < order.length; i++) {
+                    document.getElementById(order[i]).innerHTML = i+1;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
